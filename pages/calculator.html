@@ -4,7 +4,116 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Responsive Calculator</title>
-  <link rel="stylesheet" href="./calculater.css">
+  <style>
+    body {
+      background: #f2f2f2;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0 20px; /* ✅ Added left and right spacing */
+      box-sizing: border-box;
+    }
+
+    .calculator {
+      background: #cce0ff;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 350px; /* ✅ Restrict width for larger screens */
+      margin: 0 auto;   /* ✅ Ensures it's centered with padding */
+    }
+
+    #display {
+      width: 100%;
+      height: 50px;
+      font-size: 24px;
+      margin-bottom: 15px;
+      text-align: right;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .operator {
+      background-color: #ffb3d9;
+      color: #fff;
+    }
+
+    .operator1 {
+      background-color: rgb(3, 173, 3);
+      color: #fff;
+    }
+
+    .clear {
+      background-color: #ff0000;
+      color: #fff;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffffff;
+      color: black;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    button:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.534);
+    }
+
+    button.zero {
+      grid-column: span 2;
+    }
+
+    /* ✅ Responsive Adjustments */
+    @media (max-width: 480px) {
+      .calculator {
+        padding: 12px;
+      }
+
+      #display {
+        font-size: 20px;
+        height: 45px;
+      }
+
+      button {
+        padding: 12px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .buttons {
+        gap: 10px;
+      }
+
+      #display {
+        font-size: 18px;
+        height: 40px;
+        padding: 8px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="calculator">
@@ -35,6 +144,28 @@
     </div>
   </div>
 
-  <script src="./calculator.js"></script>
+  <script>
+    const display = document.getElementById('display');
+
+    function appendValue(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function deleteChar() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculateResult() {
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = 'Error';
+      }
+    }
+  </script>
 </body>
 </html>
